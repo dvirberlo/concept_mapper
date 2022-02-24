@@ -35,6 +35,15 @@ class ConceptTree {
       : concept = Concept.def(),
         parent = null;
 
+  int getMaxDepth() {
+    int depth = 0, temp = 0;
+    for (final child in children) {
+      temp = child.getMaxDepth();
+      if (temp > depth) depth = temp;
+    }
+    return depth + 1;
+  }
+
   void addChild(BuildContext context, Concept concept) {
     children.add(ConceptTree(concept, this));
     context.read<ConceptMap>().save();

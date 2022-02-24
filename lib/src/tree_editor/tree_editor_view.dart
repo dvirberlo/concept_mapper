@@ -14,12 +14,13 @@ class TreeEditorView extends StatelessWidget {
   Widget build(BuildContext context) {
     ConceptTree tree = context.watch<ConceptMap>().tree;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.editTree),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: TreeView(tree, null),
-        ));
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.editTree),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: TreeView(tree, null),
+      ),
+    );
   }
 }

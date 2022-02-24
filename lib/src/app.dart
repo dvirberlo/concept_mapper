@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './welcome/welcome_view.dart';
 import './tree_editor/tree_editor_view.dart';
+import './tree_preview/tree_preview_view.dart';
 import 'themes/themes.dart';
 
 class MyApp extends StatelessWidget {
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
             switch (routeSettings.name) {
               case TreeEditorView.routeName:
                 return const TreeEditorView();
+              case TreePreviewView.routeName:
+                return const TreePreviewView();
               case WelcomeView.routeName:
               default:
                 return const WelcomeView();
