@@ -1,0 +1,9 @@
+android/** linguist-vendored
+ios/** linguist-vendored
+web/** linguist-vendored
+windows/** linguist-vendored
+
+lib/** linguist-vendored=false
+**/*.dart linguist-vendored=false
+**/*.yaml linguist-vendored=false
+**/*.arb linguist-vendored=false
