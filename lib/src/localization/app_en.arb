@@ -1,0 +1,15 @@
+{
+  "appTitle": "Concept Mapper",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "add": "Add",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "editTree": "Edit Tree",
+  "editConcept": "Edit Concept",
+  "validName": "Pleade enter valid name",
+  "welcomeMsg": "Welcome to Concept Mapper!"
+}
