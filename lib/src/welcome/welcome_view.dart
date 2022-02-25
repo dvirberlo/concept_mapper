@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../tree_editor/tree_editor_view.dart';
-import '../tree_preview/tree_preview_view.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({Key? key}) : super(key: key);
@@ -24,18 +23,14 @@ class WelcomeView extends StatelessWidget {
               ),
               const Divider(height: 16),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(8),
+                ),
                 onPressed: () {
                   Navigator.restorablePushNamed(
                       context, TreeEditorView.routeName);
                 },
                 child: Text(AppLocalizations.of(context)!.editTree),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.restorablePushNamed(
-                      context, TreePreviewView.routeName);
-                },
-                child: Text('preview tree'),
               ),
             ],
           ),

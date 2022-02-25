@@ -9,7 +9,9 @@
   "save": "Save",
   "cancel": "Cancel",
   "editTree": "Edit Tree",
+  "viewTree": "View Tree",
   "editConcept": "Edit Concept",
   "validName": "Pleade enter valid name",
-  "welcomeMsg": "Welcome to Concept Mapper!"
+  "welcomeMsg": "Welcome to Concept Mapper!",
+  "loadingMsg":"Loading..."
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:yaru/yaru.dart';
 
 class AppTheme {
-  static ThemeData light = ThemeData.light();
-  static ThemeData dark = ThemeData.dark();
+  static ThemeData light = yaruLight;
+  static ThemeData dark = yaruDark;
   static ThemeMode themeMode = ThemeMode.dark;
 }

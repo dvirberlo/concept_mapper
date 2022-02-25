@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../concept_map/concept_map.dart';
+import '../tree_preview/tree_preview_view.dart';
 import './tree_view.dart';
 
 class TreeEditorView extends StatelessWidget {
@@ -16,6 +17,15 @@ class TreeEditorView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.editTree),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.restorablePushNamed(context, TreePreviewView.routeName);
+            },
+            icon: const Icon(Icons.preview),
+            tooltip: AppLocalizations.of(context)!.viewTree,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
