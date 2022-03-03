@@ -17,12 +17,38 @@ class TreeDrawer {
 
   void drawMap() {
     eraseAll();
-    drawConcept(tree, canvasSize.width / 2, canvasSize.height / 2);
+    drawConcept(
+      tree,
+      Offset(
+        canvasSize.width / 2,
+        (canvasSize.height / tree.getMaxDepth()) * 0.5,
+      ),
+      canvasSize,
+    );
   }
 
-  void drawConcept(ConceptTree conceptTree, double x, double y) {
-    box(x, y);
-    // TODO: ...
+  void drawConcept(ConceptTree conceptTree, Offset point, Size size) {
+    print([point, size]);
+    // TODO: padding, smart distribution, get smaller while tree is opening (per level)
+    double currentHeight = size.height / conceptTree.getMaxDepth();
+    box(point, conceptTree.concept);
+    Size childSize = Size(
+      size.width / conceptTree.children.length,
+      size.height - currentHeight,
+    );
+    double last_px = point.dx - size.width / 2 - childSize.width / 2;
+    for (int i = 0; i < conceptTree.children.length; i++) {
+      last_px += childSize.width;
+      Offset childPoint = Offset(
+        last_px,
+        point.dy + currentHeight,
+      );
+      drawConcept(
+        conceptTree.children[i],
+        childPoint,
+        childSize,
+      );
+    }
   }
 
   // drawing modules:
@@ -40,9 +66,24 @@ class TreeDrawer {
     );
   }
 
-  void box(double x, double y) {
+  void box(Offset point, Concept concept) {
+    TextPainter conceptText = TextPainter(
+      text: TextSpan(text: concept.name),
+      textDirection: TextDirection.ltr,
+    )..layout(minWidth: 0, maxWidth: 100);
+    conceptText.paint(
+      canvas,
+      Offset(
+        point.dx - conceptText.width / 2,
+        point.dy - conceptText.height / 2,
+      ),
+    );
     canvas.drawRect(
-      Rect.fromLTWH(x, y, 20, 20),
+      Rect.fromCenter(
+        center: point,
+        width: conceptText.width + 10,
+        height: conceptText.height + 10,
+      ),
       boxes,
     );
   }
