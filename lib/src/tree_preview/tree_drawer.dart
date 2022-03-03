@@ -30,7 +30,6 @@ class TreeDrawer {
 
   void drawConcept(
       ConceptTree conceptTree, Offset point, Size size, Rect? parent) {
-    print([point, size]);
     // TODO: padding, smart distribution, get smaller while tree is opening (per level)
     double currentHeight = size.height / conceptTree.getMaxDepth();
     Rect frame = box(point, conceptTree.concept);
@@ -40,11 +39,11 @@ class TreeDrawer {
       size.width / conceptTree.children.length,
       size.height - currentHeight,
     );
-    double last_px = point.dx - size.width / 2 - childSize.width / 2;
+    double lastPx = point.dx - size.width / 2 - childSize.width / 2;
     for (int i = 0; i < conceptTree.children.length; i++) {
-      last_px += childSize.width;
+      lastPx += childSize.width;
       Offset childPoint = Offset(
-        last_px,
+        lastPx,
         point.dy + currentHeight,
       );
       drawConcept(conceptTree.children[i], childPoint, childSize, frame);

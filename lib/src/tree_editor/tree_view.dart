@@ -63,6 +63,10 @@ class _TreeViewState extends State<TreeView> {
     return Column(
       children: [
         ListTile(
+          leading: showChildren
+              ? const Icon(Icons.arrow_downward)
+              : const Icon(Icons.arrow_forward),
+          iconColor: widget.conceptTree.concept.color,
           title: Row(
             children: [
               Expanded(child: Text(widget.conceptTree.concept.name)),
@@ -74,7 +78,7 @@ class _TreeViewState extends State<TreeView> {
                 ),
               IconButton(
                 onPressed: edit,
-                icon: Icon(Icons.edit, color: widget.conceptTree.concept.color),
+                icon: const Icon(Icons.edit),
                 tooltip: AppLocalizations.of(context)!.edit,
               ),
               IconButton(
