@@ -74,7 +74,7 @@ class _TreeViewState extends State<TreeView> {
                 ),
               IconButton(
                 onPressed: edit,
-                icon: const Icon(Icons.edit),
+                icon: Icon(Icons.edit, color: widget.conceptTree.concept.color),
                 tooltip: AppLocalizations.of(context)!.edit,
               ),
               IconButton(

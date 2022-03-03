@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../concept_map/concept_map.dart';
 
@@ -22,19 +23,26 @@ class ConceptDialog extends StatelessWidget {
       title: Text(AppLocalizations.of(context)!.editConcept),
       content: Form(
         key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              autofocus: true,
-              textInputAction: TextInputAction.go,
-              onFieldSubmitted: (val) => submit(),
-              controller: nameController,
-              validator: (val) => (val == null || val.isEmpty)
-                  ? AppLocalizations.of(context)!.validName
-                  : null,
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                autofocus: true,
+                textInputAction: TextInputAction.go,
+                onFieldSubmitted: (val) => submit(),
+                controller: nameController,
+                validator: (val) => (val == null || val.isEmpty)
+                    ? AppLocalizations.of(context)!.validName
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              ColorPicker(
+                pickerColor: concept.color,
+                onColorChanged: (Color c) => newConcept.color = c,
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
