@@ -15,7 +15,7 @@ class TreeView extends StatefulWidget {
 }
 
 class _TreeViewState extends State<TreeView> {
-  bool showChildren = false;
+  bool showChildren = true;
 
   void add() {
     getConcept(
@@ -49,7 +49,8 @@ class _TreeViewState extends State<TreeView> {
   }
 
   void getConcept(bool add, Function callback) {
-    Concept concept = add ? Concept.def() : widget.conceptTree.concept;
+    Concept concept = (add ? Concept.def() : widget.conceptTree.concept)
+      ..color = widget.conceptTree.concept.color;
     showDialog(
       context: context,
       builder: (context) => ConceptDialog(concept),

@@ -37,10 +37,11 @@ class ConceptDialog extends StatelessWidget {
                     : null,
               ),
               const SizedBox(height: 16),
-              ColorPicker(
+              BlockPicker(
                 pickerColor: concept.color,
                 onColorChanged: (Color c) => newConcept.color = c,
-              ),
+                itemBuilder: colorPitems,
+              )
             ],
           ),
         ),
@@ -55,6 +56,42 @@ class ConceptDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context)!.save),
         ),
       ],
+    );
+  }
+
+  Widget colorPitems(
+      Color color, bool isCurrentColor, void Function() changeColor) {
+    double _borderRadius = 10;
+    double _blurRadius = 0;
+    double _iconSize = 24;
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(_borderRadius),
+        color: color,
+        boxShadow: [
+          BoxShadow(
+              color: color.withOpacity(0.8),
+              offset: const Offset(1, 2),
+              blurRadius: _blurRadius)
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: changeColor,
+          borderRadius: BorderRadius.circular(_borderRadius),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 250),
+            opacity: isCurrentColor ? 1 : 0,
+            child: Icon(
+              Icons.done,
+              size: _iconSize,
+              color: useWhiteForeground(color) ? Colors.white : Colors.black,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
