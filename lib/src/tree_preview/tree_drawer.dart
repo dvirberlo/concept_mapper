@@ -59,7 +59,7 @@ class TreeDrawer {
     ..color = Colors.pink
     ..style = PaintingStyle.stroke;
   static Paint lines = Paint()
-    ..color = Colors.black87
+    ..color = Colors.brown
     ..style = PaintingStyle.stroke;
 
   void eraseAll() {
@@ -71,7 +71,10 @@ class TreeDrawer {
 
   Rect box(Offset point, Concept concept) {
     TextPainter conceptText = TextPainter(
-      text: TextSpan(text: concept.name),
+      text: TextSpan(
+        text: concept.name,
+        style: TextStyle(color: concept.color),
+      ),
       textDirection: TextDirection.ltr,
     )..layout(minWidth: 0, maxWidth: 100);
     conceptText.paint(
@@ -88,7 +91,7 @@ class TreeDrawer {
     );
     canvas.drawRect(
       frame,
-      boxes,
+      boxes..color = concept.color,
     );
     return frame;
   }

@@ -76,12 +76,21 @@ class ConceptTree {
 }
 
 class Concept {
-  // late Color color;
+  late Color color;
   late String name;
 
-  Concept(this.name);
-  Concept.def() : name = '';
+  Concept(this.name, this.color);
+  Concept.def()
+      : name = '',
+        color = Colors.blue;
 
-  Map<String, dynamic> toJson() => {'name': name};
-  static Concept fromJson(Map<String, dynamic> map) => Concept(map['name']);
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'color': color.value.toRadixString(16),
+      };
+  static Concept fromJson(Map<String, dynamic> map) => Concept(
+        map['name'],
+        Color(int.parse(
+            "0x${map['color'] ?? Colors.black.value.toRadixString(16)}")),
+      );
 }
