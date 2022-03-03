@@ -24,14 +24,18 @@ class TreeDrawer {
         (canvasSize.height / tree.getMaxDepth()) * 0.5,
       ),
       canvasSize,
+      null,
     );
   }
 
-  void drawConcept(ConceptTree conceptTree, Offset point, Size size) {
+  void drawConcept(
+      ConceptTree conceptTree, Offset point, Size size, Rect? parent) {
     print([point, size]);
     // TODO: padding, smart distribution, get smaller while tree is opening (per level)
     double currentHeight = size.height / conceptTree.getMaxDepth();
-    box(point, conceptTree.concept);
+    Rect frame = box(point, conceptTree.concept);
+    if (parent != null) line(frame, parent);
+
     Size childSize = Size(
       size.width / conceptTree.children.length,
       size.height - currentHeight,
@@ -43,11 +47,7 @@ class TreeDrawer {
         last_px,
         point.dy + currentHeight,
       );
-      drawConcept(
-        conceptTree.children[i],
-        childPoint,
-        childSize,
-      );
+      drawConcept(conceptTree.children[i], childPoint, childSize, frame);
     }
   }
 
@@ -58,6 +58,9 @@ class TreeDrawer {
   static Paint boxes = Paint()
     ..color = Colors.pink
     ..style = PaintingStyle.stroke;
+  static Paint lines = Paint()
+    ..color = Colors.black87
+    ..style = PaintingStyle.stroke;
 
   void eraseAll() {
     canvas.drawRect(
@@ -66,7 +69,7 @@ class TreeDrawer {
     );
   }
 
-  void box(Offset point, Concept concept) {
+  Rect box(Offset point, Concept concept) {
     TextPainter conceptText = TextPainter(
       text: TextSpan(text: concept.name),
       textDirection: TextDirection.ltr,
@@ -78,13 +81,35 @@ class TreeDrawer {
         point.dy - conceptText.height / 2,
       ),
     );
+    Rect frame = Rect.fromCenter(
+      center: point,
+      width: conceptText.width + 10,
+      height: conceptText.height + 10,
+    );
     canvas.drawRect(
-      Rect.fromCenter(
-        center: point,
-        width: conceptText.width + 10,
-        height: conceptText.height + 10,
-      ),
+      frame,
       boxes,
     );
+    return frame;
+  }
+
+  void line(Rect box, Rect parent) {
+    Offset dParentP = parent.center.dx == box.center.dx
+        ? parent.bottomCenter
+        : (box.center.dx > parent.center.dx
+            ? parent.centerRight
+            : parent.centerLeft);
+    Offset dChildP = box.topCenter;
+    Offset middleP = Offset(dChildP.dx, dParentP.dy);
+
+    // vertical line TODO: fix this:
+    if (!((middleP.dx < parent.center.dx &&
+            middleP.dx > parent.centerLeft.dx) ||
+        (middleP.dx > parent.center.dx &&
+            middleP.dx < parent.centerRight.dx))) {
+      canvas.drawLine(dParentP, middleP, lines);
+    }
+    // horizontal line
+    canvas.drawLine(middleP, dChildP, lines);
   }
 }
