@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../concept_map/concept_map.dart';
+import '../objects/concept_map.dart';
 import '../tree_preview/tree_preview_view.dart';
 import './tree_view.dart';
 

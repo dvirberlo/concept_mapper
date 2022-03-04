@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import './concept_dialog.dart';
-import '../concept_map/concept_map.dart';
+import '../objects/concept_map.dart';
 
 class TreeView extends StatefulWidget {
   final ConceptTree conceptTree;

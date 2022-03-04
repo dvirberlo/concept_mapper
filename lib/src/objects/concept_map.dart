@@ -6,15 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter/material.dart';
 
 class ConceptMap with ChangeNotifier {
-  final String prefKey = 'ConceptMap';
+  late String prefKey;
 
   late SharedPreferences prefs;
   late ConceptTree _tree;
   ConceptTree get tree => _tree;
 
-  ConceptMap(this.prefs) {
+  ConceptMap(this.prefs, this.prefKey) {
     _tree = ConceptTree.fromJson(jsonDecode(prefs.getString(prefKey) ??
-        '{"concept":{"name":"Root"},"children":[]}'));
+        '{"concept":{"name":"Root", "color":"ff000000"},"children":[]}'));
     save();
   }
 
@@ -90,7 +90,6 @@ class Concept {
       };
   static Concept fromJson(Map<String, dynamic> map) => Concept(
         map['name'],
-        Color(int.parse(
-            "0x${map['color'] ?? Colors.black.value.toRadixString(16)}")),
+        Color(int.parse("0x${map['color']}")),
       );
 }

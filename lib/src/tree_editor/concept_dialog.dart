@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-import '../concept_map/concept_map.dart';
+import '../objects/concept_map.dart';
 
 class ConceptDialog extends StatelessWidget {
   final Concept concept;

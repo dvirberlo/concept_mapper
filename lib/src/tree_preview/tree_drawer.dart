@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../concept_map/concept_map.dart';
+import '../objects/concept_map.dart';
 
 class TreeDrawer {
   ConceptTree tree;
