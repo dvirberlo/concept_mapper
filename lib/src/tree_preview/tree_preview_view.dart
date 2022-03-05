@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
+import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,6 +40,19 @@ class _TreePreviewViewState extends State<TreePreviewView> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.viewTree),
         actions: [
+          IconButton(
+            onPressed: () {
+              if (imgBytes != null) {
+                final content = base64.encode(imgBytes!.buffer.asUint8List());
+                AnchorElement(href: "data:image/png;base64,$content")
+                  ..setAttribute("download", "file.png")
+                  ..click();
+              }
+            },
+            icon: const Icon(Icons.download),
+            // TODO: lang
+            tooltip: "Download",
+          ),
           IconButton(
             onPressed: () {
               Navigator.pop(context);
