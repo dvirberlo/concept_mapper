@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../tree_editor/tree_editor_view.dart';
+import '../tree_preview/tree_preview_view.dart';
 import '../objects/maps_db.dart';
 
 class MapCardView extends StatelessWidget {
@@ -12,6 +13,11 @@ class MapCardView extends StatelessWidget {
   void edit(BuildContext context) {
     context.read<MapsDB>().setMap(mapName);
     Navigator.restorablePushNamed(context, TreeEditorView.routeName);
+  }
+
+  void preview(BuildContext context) {
+    context.read<MapsDB>().setMap(mapName);
+    Navigator.restorablePushNamed(context, TreePreviewView.routeName);
   }
 
   void delete(BuildContext context) {
@@ -28,7 +34,11 @@ class MapCardView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const Icon(Icons.preview),
+                onPressed: () => preview(context),
+              ),
+              IconButton(
+                icon: const Icon(Icons.edit_note),
                 onPressed: () => edit(context),
               ),
               IconButton(
