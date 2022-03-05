@@ -14,6 +14,10 @@ class MapCardView extends StatelessWidget {
     Navigator.restorablePushNamed(context, TreeEditorView.routeName);
   }
 
+  void delete(BuildContext context) {
+    context.read<MapsDB>().deleteMap(mapName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,6 +30,10 @@ class MapCardView extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () => edit(context),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () => delete(context),
               ),
             ],
           )

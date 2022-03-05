@@ -35,4 +35,9 @@ class MapsDB with ChangeNotifier {
     update((List<String> l) => l.add(mapName));
     return map;
   }
+
+  void deleteMap(String mapName) {
+    if (!mapsList.contains(mapName)) return null;
+    update((List<String> l) => l.remove(mapName));
+  }
 }
