@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../objects/concept_map.dart';
+import '../objects/maps_db.dart';
 import '../tree_preview/tree_preview_view.dart';
 import './tree_view.dart';
 
@@ -13,7 +14,7 @@ class TreeEditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConceptTree tree = context.watch<ConceptMap>().tree;
+    ConceptTree tree = context.read<MapsDB>().currentMap.tree;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.editTree),

@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:flutter/material.dart';
+
+import './maps_db.dart';
 
 class ConceptMap with ChangeNotifier {
+  static const String defJSON =
+      '{"concept":{"name":"Root", "color":"ff000000"},"children":[]}';
   late String prefKey;
 
   late SharedPreferences prefs;
@@ -13,8 +16,13 @@ class ConceptMap with ChangeNotifier {
   ConceptTree get tree => _tree;
 
   ConceptMap(this.prefs, this.prefKey) {
-    _tree = ConceptTree.fromJson(jsonDecode(prefs.getString(prefKey) ??
-        '{"concept":{"name":"Root", "color":"ff000000"},"children":[]}'));
+    _tree =
+        ConceptTree.fromJson(jsonDecode(prefs.getString(prefKey) ?? defJSON));
+    save();
+  }
+  ConceptMap.def(this.prefs) : prefKey = '' {
+    _tree =
+        ConceptTree.fromJson(jsonDecode(prefs.getString(prefKey) ?? defJSON));
     save();
   }
 
@@ -46,12 +54,12 @@ class ConceptTree {
 
   void addChild(BuildContext context, Concept concept) {
     children.add(ConceptTree(concept, this));
-    context.read<ConceptMap>().save();
+    context.read<MapsDB>().currentMap.save();
   }
 
   void editConcept(BuildContext context, Concept concept) {
     this.concept = concept;
-    context.read<ConceptMap>().save();
+    context.read<MapsDB>().currentMap.save();
   }
 
   void delete(BuildContext context) {
@@ -59,7 +67,7 @@ class ConceptTree {
     parent!.children.removeWhere((element) =>
         element.concept.name == concept.name &&
         element.children.length == children.length);
-    context.read<ConceptMap>().save();
+    context.read<MapsDB>().currentMap.save();
   }
 
   Map<String, dynamic> toJson() => {

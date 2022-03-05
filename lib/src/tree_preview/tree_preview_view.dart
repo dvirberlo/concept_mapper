@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../objects/concept_map.dart';
+import '../objects/maps_db.dart';
 import './tree_drawer.dart';
 
 class TreePreviewView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _TreePreviewViewState extends State<TreePreviewView> {
 
   @override
   Widget build(BuildContext context) {
-    tree = context.watch<ConceptMap>().tree;
+    tree = context.read<MapsDB>().currentMap.tree;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.viewTree),
