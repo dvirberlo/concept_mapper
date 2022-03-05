@@ -20,7 +20,12 @@ class WelcomeView extends StatelessWidget {
       showDialog(
         context: context,
         // TODO: lang
-        builder: (context) => MapDialog(map, add ? "Add Map" : "Edit Map"),
+        builder: (context) => MapDialog(
+          map,
+          add
+              ? AppLocalizations.of(context)!.addMap
+              : AppLocalizations.of(context)!.editMap,
+        ),
       ).then((value) {
         if (value != null && value is ConceptMap) callback(value);
       });
@@ -50,8 +55,7 @@ class WelcomeView extends StatelessWidget {
                         context, TreeEditorView.routeName);
                   });
                 },
-                // TODO: lang
-                child: Text('Create New Map'),
+                child: Text(AppLocalizations.of(context)!.newMap),
               ),
               const Divider(height: 16),
               Expanded(

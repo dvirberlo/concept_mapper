@@ -11,7 +11,11 @@
   "editTree": "Edit Tree",
   "viewTree": "View Tree",
   "editConcept": "Edit Concept",
+  "addConcept": "Add Concept",
   "validName": "Pleade enter valid name",
   "welcomeMsg": "Welcome to Concept Mapper!",
-  "loadingMsg":"Loading..."
+  "loadingMsg":"Loading...",
+  "newMap" : "Create New Map",
+  "addMap" : "Add Map",
+  "editMap" : "Edit Map"
 }
