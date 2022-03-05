@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../tree_editor/tree_editor_view.dart';
 import '../objects/concept_map.dart';
+import './map_dialog.dart';
 import './map_card_view.dart';
 
 class WelcomeView extends StatelessWidget {
@@ -14,6 +15,16 @@ class WelcomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void getConceptMap(bool add, Function callback) {
+      ConceptMap map = ConceptMap.def(context.read<MapsDB>().prefs);
+      showDialog(
+        context: context,
+        builder: (context) => MapDialog(map),
+      ).then((value) {
+        if (value != null && value is ConceptMap) callback(value);
+      });
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.appTitle),
@@ -31,9 +42,12 @@ class WelcomeView extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                 ),
                 onPressed: () {
-                  // TODO: edit map dialog
-                  context.read<MapsDB>().newMap('mapName2');
-                  // Navigator.restorablePushNamed(context, TreeEditorView.routeName);
+                  getConceptMap(true, (ConceptMap map) {
+                    context.read<MapsDB>().newMap(map.prefKey);
+                    context.read<MapsDB>().setMap(map.prefKey);
+                    Navigator.restorablePushNamed(
+                        context, TreeEditorView.routeName);
+                  });
                 },
                 // TODO: lang
                 child: Text('Create New Map'),
