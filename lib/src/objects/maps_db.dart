@@ -25,9 +25,9 @@ class MapsDB with ChangeNotifier {
 
   void save() => prefs.setStringList(prefList, _mapsList);
 
-  void setMap(String mapName) {
-    _currentMap = ConceptMap(prefs, mapName);
-  }
+  ConceptMap getMap(String mapName) => ConceptMap(prefs, mapName);
+
+  void setMap(String mapName) => _currentMap = getMap(mapName);
 
   ConceptMap? newMap(String mapName) {
     if (mapsList.contains(mapName)) return null;
@@ -39,5 +39,14 @@ class MapsDB with ChangeNotifier {
   void deleteMap(String mapName) {
     if (!mapsList.contains(mapName)) return null;
     update((List<String> l) => l.remove(mapName));
+  }
+
+  void renameMap(String mapName, String newName) {
+    if (!mapsList.contains(mapName)) return null;
+    update((List<String> l) {
+      ConceptMap(prefs, mapName).rename(newName);
+      l.remove(mapName);
+      l.add(newName);
+    });
   }
 }

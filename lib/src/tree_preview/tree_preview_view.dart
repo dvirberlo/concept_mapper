@@ -53,13 +53,6 @@ class _TreePreviewViewState extends State<TreePreviewView> {
             // TODO: lang
             tooltip: "Download",
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.edit_note),
-            tooltip: AppLocalizations.of(context)!.editTree,
-          ),
         ],
       ),
       body: Center(

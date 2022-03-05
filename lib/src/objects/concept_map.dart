@@ -32,6 +32,12 @@ class ConceptMap with ChangeNotifier {
   }
 
   void save() => prefs.setString(prefKey, jsonEncode(_tree.toJson()));
+
+  void rename(String newName) {
+    // TODO: delete last one?
+    prefKey = newName;
+    save();
+  }
 }
 
 class ConceptTree {

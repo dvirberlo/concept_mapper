@@ -13,24 +13,24 @@ class WelcomeView extends StatelessWidget {
 
   static const routeName = '/';
 
+  static void getConceptMap(
+      BuildContext context, ConceptMap map, bool add, Function callback) {
+    showDialog(
+      context: context,
+      // TODO: lang
+      builder: (context) => MapDialog(
+        map,
+        add
+            ? AppLocalizations.of(context)!.addMap
+            : AppLocalizations.of(context)!.editMap,
+      ),
+    ).then((value) {
+      if (value != null && value is ConceptMap) callback(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void getConceptMap(bool add, Function callback) {
-      ConceptMap map = ConceptMap.def(context.read<MapsDB>().prefs);
-      showDialog(
-        context: context,
-        // TODO: lang
-        builder: (context) => MapDialog(
-          map,
-          add
-              ? AppLocalizations.of(context)!.addMap
-              : AppLocalizations.of(context)!.editMap,
-        ),
-      ).then((value) {
-        if (value != null && value is ConceptMap) callback(value);
-      });
-    }
-
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.appTitle),
@@ -48,7 +48,10 @@ class WelcomeView extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                 ),
                 onPressed: () {
-                  getConceptMap(true, (ConceptMap map) {
+                  getConceptMap(
+                      context,
+                      ConceptMap.def(context.read<MapsDB>().prefs),
+                      true, (ConceptMap map) {
                     context.read<MapsDB>().newMap(map.prefKey);
                     context.read<MapsDB>().setMap(map.prefKey);
                     Navigator.restorablePushNamed(
@@ -65,7 +68,7 @@ class WelcomeView extends StatelessWidget {
                       MediaQuery.of(context).size.width ~/ MapCardView.minWidth,
                   children: Provider.of<MapsDB>(context, listen: true)
                       .mapsList
-                      .map((e) => MapCardView(e))
+                      .map((e) => MapCardView(e, getConceptMap))
                       .toList(),
                 ),
               ),
