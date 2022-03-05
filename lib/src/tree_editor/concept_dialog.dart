@@ -6,7 +6,8 @@ import '../objects/concept_map.dart';
 
 class ConceptDialog extends StatelessWidget {
   final Concept concept;
-  const ConceptDialog(this.concept, {Key? key}) : super(key: key);
+  final String title;
+  const ConceptDialog(this.concept, this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,7 @@ class ConceptDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      // TODO: edit/add
-      title: Text(AppLocalizations.of(context)!.editConcept),
+      title: Text(title),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(

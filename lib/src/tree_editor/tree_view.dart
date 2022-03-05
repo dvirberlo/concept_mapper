@@ -51,9 +51,12 @@ class _TreeViewState extends State<TreeView> {
   void getConcept(bool add, Function callback) {
     Concept concept = (add ? Concept.def() : widget.conceptTree.concept)
       ..color = widget.conceptTree.concept.color;
+    // TODO: lang
+    String title =
+        add ? "Add Concept" : AppLocalizations.of(context)!.editConcept;
     showDialog(
       context: context,
-      builder: (context) => ConceptDialog(concept),
+      builder: (context) => ConceptDialog(concept, title),
     ).then((value) {
       if (value != null && value is Concept) callback(value);
     });

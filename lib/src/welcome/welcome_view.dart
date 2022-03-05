@@ -19,7 +19,8 @@ class WelcomeView extends StatelessWidget {
       ConceptMap map = ConceptMap.def(context.read<MapsDB>().prefs);
       showDialog(
         context: context,
-        builder: (context) => MapDialog(map),
+        // TODO: lang
+        builder: (context) => MapDialog(map, add ? "Add Map" : "Edit Map"),
       ).then((value) {
         if (value != null && value is ConceptMap) callback(value);
       });

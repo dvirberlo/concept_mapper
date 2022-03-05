@@ -5,7 +5,8 @@ import '../objects/concept_map.dart';
 
 class MapDialog extends StatelessWidget {
   final ConceptMap conceptMap;
-  const MapDialog(this.conceptMap, {Key? key}) : super(key: key);
+  final String title;
+  const MapDialog(this.conceptMap, this.title, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,7 @@ class MapDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      // TODO: lang, edit/add
-      title: Text("Edit Map"),
+      title: Text(title),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
