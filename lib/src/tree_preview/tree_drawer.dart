@@ -52,14 +52,15 @@ class TreeDrawer {
 
   // drawing modules:
   static Paint eraser = Paint()
-    ..color = Colors.white70
+    ..color = Colors.white
     ..style = PaintingStyle.fill;
   static Paint boxes = Paint()
-    ..color = Colors.pink
+    ..color = Colors.black
     ..style = PaintingStyle.stroke;
   static Paint lines = Paint()
-    ..color = Colors.brown
-    ..style = PaintingStyle.stroke;
+    ..color = Colors.black
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2;
 
   void eraseAll() {
     canvas.drawRect(
