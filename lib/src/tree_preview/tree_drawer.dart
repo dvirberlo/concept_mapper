@@ -96,22 +96,23 @@ class TreeDrawer {
   }
 
   void line(Rect box, Rect parent) {
-    Offset dParentP = parent.center.dx == box.center.dx
-        ? parent.bottomCenter
-        : (box.center.dx > parent.center.dx
-            ? parent.centerRight
-            : parent.centerLeft);
-    Offset dChildP = box.topCenter;
-    Offset middleP = Offset(dChildP.dx, dParentP.dy);
+    // Offset dParentP = parent.center.dx == box.center.dx
+    //     ? parent.bottomCenter
+    //     : (box.center.dx > parent.center.dx
+    //         ? parent.centerRight
+    //         : parent.centerLeft);
+    // Offset dChildP = box.topCenter;
+    // Offset middleP = Offset(dChildP.dx, dParentP.dy);
 
-    // vertical line TODO: fix this:
-    if (!((middleP.dx < parent.center.dx &&
-            middleP.dx > parent.centerLeft.dx) ||
-        (middleP.dx > parent.center.dx &&
-            middleP.dx < parent.centerRight.dx))) {
-      canvas.drawLine(dParentP, middleP, lines);
-    }
-    // horizontal line
-    canvas.drawLine(middleP, dChildP, lines);
+    // // vertical line TODO: fix this:
+    // if (!((middleP.dx < parent.center.dx &&
+    //         middleP.dx > parent.centerLeft.dx) ||
+    //     (middleP.dx > parent.center.dx &&
+    //         middleP.dx < parent.centerRight.dx))) {
+    //   canvas.drawLine(dParentP, middleP, lines);
+    // }
+    // // horizontal line
+    // canvas.drawLine(middleP, dChildP, lines);
+    canvas.drawLine(parent.bottomCenter, box.topCenter, lines);
   }
 }
