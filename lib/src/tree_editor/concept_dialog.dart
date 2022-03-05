@@ -20,6 +20,7 @@ class ConceptDialog extends StatelessWidget {
     }
 
     return AlertDialog(
+      // TODO: edit/add
       title: Text(AppLocalizations.of(context)!.editConcept),
       content: Form(
         key: _formKey,
@@ -48,7 +49,7 @@ class ConceptDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(newConcept),
+          onPressed: () => Navigator.of(context).pop(null),
           child: Text(AppLocalizations.of(context)!.cancel),
         ),
         TextButton(
