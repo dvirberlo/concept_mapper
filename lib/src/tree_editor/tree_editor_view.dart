@@ -28,9 +28,11 @@ class TreeEditorView extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: TreeView(tree, null),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: TreeView(tree, null),
+        ),
       ),
     );
   }

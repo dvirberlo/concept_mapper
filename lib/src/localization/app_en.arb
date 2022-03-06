@@ -17,5 +17,6 @@
   "loadingMsg":"Loading...",
   "newMap" : "Create New Map",
   "addMap" : "Add Map",
-  "editMap" : "Edit Map"
+  "editMap" : "Edit Map",
+  "download": "Download"
 }

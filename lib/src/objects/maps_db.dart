@@ -37,12 +37,12 @@ class MapsDB with ChangeNotifier {
   }
 
   void deleteMap(String mapName) {
-    if (!mapsList.contains(mapName)) return null;
+    if (!mapsList.contains(mapName)) return;
     update((List<String> l) => l.remove(mapName));
   }
 
   void renameMap(String mapName, String newName) {
-    if (!mapsList.contains(mapName)) return null;
+    if (!mapsList.contains(mapName)) return;
     update((List<String> l) {
       ConceptMap(prefs, mapName).rename(newName);
       l.remove(mapName);

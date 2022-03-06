@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import '../objects/concept_map.dart';
 
 class TreeDrawer {
+  static const Size canvasSize = Size(2048, 1448);
+
   ConceptTree tree;
-  Size canvasSize;
   late Size distance;
   Canvas canvas;
-  TreeDrawer(this.canvas, this.canvasSize, this.tree) {
+  TreeDrawer(this.canvas, this.tree) {
     int maxDepth = tree.getMaxDepth();
     distance = Size(
       canvasSize.width / maxDepth,
@@ -56,11 +57,13 @@ class TreeDrawer {
     ..style = PaintingStyle.fill;
   static Paint boxes = Paint()
     ..color = Colors.black
-    ..style = PaintingStyle.stroke;
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2;
   static Paint lines = Paint()
     ..color = Colors.black
     ..style = PaintingStyle.stroke
-    ..strokeWidth = 2;
+    ..strokeWidth = 4;
+  TextStyle boxTextStyle(Color c) => TextStyle(fontSize: 32, color: c);
 
   void eraseAll() {
     canvas.drawRect(
@@ -71,10 +74,7 @@ class TreeDrawer {
 
   Rect box(Offset point, Concept concept) {
     TextPainter conceptText = TextPainter(
-      text: TextSpan(
-        text: concept.name,
-        style: TextStyle(color: concept.color),
-      ),
+      text: TextSpan(text: concept.name, style: boxTextStyle(concept.color)),
       textDirection: TextDirection.ltr,
     )..layout(minWidth: 0, maxWidth: 100);
     conceptText.paint(
@@ -89,8 +89,8 @@ class TreeDrawer {
       width: conceptText.width + 10,
       height: conceptText.height + 10,
     );
-    canvas.drawRect(
-      frame,
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(frame, const Radius.circular(10)),
       boxes..color = concept.color,
     );
     return frame;

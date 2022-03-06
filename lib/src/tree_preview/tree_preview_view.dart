@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 import 'dart:ui';
-import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:provider/provider.dart';
 
 import '../objects/concept_map.dart';
@@ -22,7 +21,7 @@ class TreePreviewView extends StatefulWidget {
 
 class _TreePreviewViewState extends State<TreePreviewView> {
   // A4~like size
-  static const Size canvasSize = Size(1024, 724);
+  final Size canvasSize = TreeDrawer.canvasSize;
   late ConceptTree tree;
 
   ByteData? imgBytes;
@@ -41,17 +40,20 @@ class _TreePreviewViewState extends State<TreePreviewView> {
         title: Text(AppLocalizations.of(context)!.viewTree),
         actions: [
           IconButton(
-            onPressed: () {
-              if (imgBytes != null) {
-                final content = base64.encode(imgBytes!.buffer.asUint8List());
-                AnchorElement(href: "data:image/png;base64,$content")
-                  ..setAttribute("download", "file.png")
-                  ..click();
-              }
+            onPressed: () async {
+              if (imgBytes == null) return;
+              final name = context.read<MapsDB>().currentMap.prefKey + '.png';
+              final path = await getSavePath(acceptedTypeGroups: [
+                XTypeGroup(extensions: ['.png'])
+              ], suggestedName: name);
+              if (path == null) return;
+              final data = imgBytes!.buffer.asUint8List();
+              const mimeType = "image/png";
+              final file = XFile.fromData(data, name: name, mimeType: mimeType);
+              await file.saveTo(path);
             },
             icon: const Icon(Icons.download),
-            // TODO: lang
-            tooltip: "Download",
+            tooltip: AppLocalizations.of(context)!.download,
           ),
         ],
       ),
@@ -79,7 +81,7 @@ class _TreePreviewViewState extends State<TreePreviewView> {
           Offset(canvasSize.width, canvasSize.height),
         ));
 
-    TreeDrawer(canvas, canvasSize, tree).drawMap();
+    TreeDrawer(canvas, tree).drawMap();
 
     final picture = recorder.endRecording();
     final img = await picture.toImage(

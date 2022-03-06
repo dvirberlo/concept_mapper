@@ -17,7 +17,6 @@ class WelcomeView extends StatelessWidget {
       BuildContext context, ConceptMap map, bool add, Function callback) {
     showDialog(
       context: context,
-      // TODO: lang
       builder: (context) => MapDialog(
         map,
         add
